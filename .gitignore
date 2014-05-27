@@ -19,7 +19,41 @@
 *.rar
 *.tar
 *.zip
- 
+
+# Debug #
+#########
+*.pdb
+
+# Roslyn #
+##########
+*.ide/
+
+# Solution #
+############
+*.suo
+*.user
+
+# ReSharper #
+#############
+_Resharper*
+
+# NuGet #
+#########
+packages/*
+*.nupkg
+!packages/repositories.config
+
+# nUnit#
+#########
+*.VisualState.xml
+TestResult.xml
+
+# Build folders #
+#################
+bin
+obj
+Builds/PackageBuild/packages
+
 # Logs and databases #
 ######################
 *.log

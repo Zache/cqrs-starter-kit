@@ -39,7 +39,7 @@ _Resharper*
 
 # NuGet #
 #########
-packages/*
+packages/
 *.nupkg
 !packages/repositories.config
 

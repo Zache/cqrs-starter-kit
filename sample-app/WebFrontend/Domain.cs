@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CloudStore;
 using Edument.CQRS;
 using CafeReadModels;
 using Cafe.Tab;
@@ -16,7 +17,7 @@ namespace WebFrontend
 
         public static void Setup()
         {
-            Dispatcher = new MessageDispatcher(new InMemoryEventStore());
+            Dispatcher = new MessageDispatcher(new CloudTableStore());
             
             Dispatcher.ScanInstance(new TabCommandHandlers());
 

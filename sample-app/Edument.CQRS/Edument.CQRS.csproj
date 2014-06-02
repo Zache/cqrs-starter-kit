@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Edument.CQRS</RootNamespace>
     <AssemblyName>Edument.CQRS</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -46,6 +46,7 @@
     <Compile Include="Aggregate.cs" />
     <Compile Include="BDDTest.cs" />
     <Compile Include="InMemoryEventStore.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SqlEventStore.cs" />
     <Compile Include="IApplyEvent.cs" />
     <Compile Include="IEventStore.cs" />

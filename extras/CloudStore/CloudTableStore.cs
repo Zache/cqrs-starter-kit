@@ -29,6 +29,12 @@ namespace CloudStore
 			_events.CreateIfNotExists();
 		}
 
+		public IEnumerable<Tuple<Type, Guid>> GetAllAggregates()
+		{
+			return from dte in _aggregates.ExecuteQuery(new TableQuery())
+				   select Tuple.Create(Type.GetType(dte.PartitionKey), Guid.Parse(dte.RowKey));
+		}
+
 		public IEnumerable LoadEventsFor<TAggregate>(Guid id)
 		{
 			var query = new TableQuery().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, id.ToString()));

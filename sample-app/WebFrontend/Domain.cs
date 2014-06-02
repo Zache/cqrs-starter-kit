@@ -9,23 +9,30 @@ using Cafe.Tab;
 
 namespace WebFrontend
 {
-    public static class Domain
-    {
-        public static MessageDispatcher Dispatcher;
-        public static IOpenTabQueries OpenTabQueries;
-        public static IChefTodoListQueries ChefTodoListQueries;
+	public static class Domain
+	{
+		public static MessageDispatcher Dispatcher;
+		public static IOpenTabQueries OpenTabQueries;
+		public static IChefTodoListQueries ChefTodoListQueries;
 
-        public static void Setup()
-        {
-            Dispatcher = new MessageDispatcher(new CloudTableStore());
-            
-            Dispatcher.ScanInstance(new TabCommandHandlers());
+		public static void Setup()
+		{
+			var eventStorage = new CloudTableStore();
+			Dispatcher = new MessageDispatcher(eventStorage);
 
-            OpenTabQueries = new OpenTabs();
-            Dispatcher.ScanInstance(OpenTabQueries);
+			Dispatcher.ScanInstance(new TabCommandHandlers());
 
-            ChefTodoListQueries = new ChefTodoList();
-            Dispatcher.ScanInstance(ChefTodoListQueries);
-        }
-    }
+			OpenTabQueries = new OpenTabs();
+			Dispatcher.ScanInstance(OpenTabQueries);
+
+			ChefTodoListQueries = new ChefTodoList();
+			Dispatcher.ScanInstance(ChefTodoListQueries);
+
+			var aggregates = eventStorage.GetAllAggregates();
+			foreach (var agg in aggregates)
+				Dispatcher.GetType().GetMethod("ReplayEvents")
+					.MakeGenericMethod(agg.Item1)
+					.Invoke(Dispatcher, new object[] { agg.Item2 });
+		}
+	}
 }
